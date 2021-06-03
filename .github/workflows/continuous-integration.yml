@@ -21,8 +21,11 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew build -test
       - name: Run component tests
+        env:
+          PACT_BROKER_BASE_URL: ${{secrets.PACT_BROKER_BASE_URL}}
+          PACT_BROKER_TOKEN: ${{secrets.PACT_BROKER_TOKEN}}
         run: ./gradlew test --tests "com.shelter.animalback.component.api.*"
       - name: Run contract tests
         run: ./gradlew test --tests "com.shelter.animalback.contract.api.provider.*"
