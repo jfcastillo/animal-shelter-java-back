@@ -50,10 +50,10 @@ public class AnimalController {
     }
 
     @PostMapping("/animals")
-    public ResponseEntity<?> saveAnimal(@RequestBody CreateAnimalBodyDto animalDto) {
+    public ResponseEntity<?> saveAnimal(@RequestBody Animal animalDto) {
         try {
-            var animal = animalService.save(map(animalDto));
-            return new ResponseEntity<AnimalDto>(map(animal), HttpStatus.CREATED);
+            var animal = animalService.save(animalDto);
+            return new ResponseEntity<Animal>(animal, HttpStatus.CREATED);
 
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(String.format("The animal called %s has already been created", animalDto.getName()));

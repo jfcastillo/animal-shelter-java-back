@@ -20,11 +20,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 
+import static org.junit.Assert.assertTrue;
+
 //@PactBroker(host = "${PACT_BROKER_BASE_URL}", scheme = "${PACT_BROKER_SCHEME}", authentication = @PactBrokerAuth(token = "$PACT_BROKER_TOKEN"))
 @PactBroker(host = "fcastillo.pactflow.io", scheme = "https", authentication = @PactBrokerAuth(token = "JvnB1G-_kL7BqyUSH5oYCw"))
 @Provider("AnimalShelterBack")
 @ExtendWith(MockitoExtension.class)
-public class ListAnimalTest {
+public class AnimalShelterProviderTest {
     @Mock
     private AnimalService animalService;
 
@@ -44,7 +46,7 @@ public class ListAnimalTest {
         context.setTarget(testTarget);
     }
     @State("there are animals")
-    public void addAnimals() {
+    public void listAnimals() {
         Animal animal = new Animal();
         animal.setName("Bigotes");
         animal.setBreed("Siames");
@@ -56,6 +58,26 @@ public class ListAnimalTest {
 
         Mockito.when(animalService.getAll()).thenReturn(animals);
 
+    }
+    @State("remove animal")
+    public void deleteAnimal(){
+        String name = "Lisa";
+
+        Mockito.doAnswer((i) -> {
+            assertTrue(name.equals(i.getArgument(0)));
+            return null;
+        }).when(animalService).delete(name);
+    }
+
+    @State("create animal")
+    public void saveAnimal(){
+        Animal animal = new Animal();
+        animal.setName("Lisa");
+        animal.setBreed("Criolla");
+        animal.setGender("Female");
+        animal.setVaccinated(true);
+
+        Mockito.when(animalService.save(Mockito.any(Animal.class))).thenReturn(animal);
     }
 
 
