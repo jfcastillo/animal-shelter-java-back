@@ -22,8 +22,9 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.assertTrue;
 
-//@PactBroker(host = "${PACT_BROKER_BASE_URL}", scheme = "${PACT_BROKER_SCHEME}", authentication = @PactBrokerAuth(token = "$PACT_BROKER_TOKEN"))
-@PactBroker(host = "fcastillo.pactflow.io", scheme = "https", authentication = @PactBrokerAuth(token = "JvnB1G-_kL7BqyUSH5oYCw"))
+
+//@PactBroker(host = "fcastillo.pactflow.io", scheme = "https", authentication = @PactBrokerAuth(token = "JvnB1G-_kL7BqyUSH5oYCw"))
+@PactBroker(url = "${PACT_BROKER_BASE_URL}",authentication = @PactBrokerAuth(token = "${PACT_BROKER_TOKEN}"))
 @Provider("AnimalShelterBack")
 @ExtendWith(MockitoExtension.class)
 public class AnimalShelterProviderTest {

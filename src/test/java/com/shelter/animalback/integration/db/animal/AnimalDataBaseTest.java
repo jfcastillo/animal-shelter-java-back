@@ -26,7 +26,7 @@ public class AnimalDataBaseTest {
     @Autowired
     private AnimalRepository animalRepository;
 
-    @Test
+
     public void createAnimal() {
         var animal = new AnimalDao("Hela", "Mestizo", "Female", true);
         var animalDb = animalRepository.save(animal);
